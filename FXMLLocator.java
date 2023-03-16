@@ -14,13 +14,10 @@ import javafx.fxml.FXMLLoader;
  *
  * @author Riebelsteiner
  * @version 1.0
- * @since   2023-03-12
+ * @since   2023-03-16
  */
 public class FXMLLocator {
-	/** can be deleted if hard-coded version is used */
-	static Class<?> myClass = null;	
-	/** can be deleted if hard-coded version is used */
-	static String myName;
+
 	/** 
 	 * An explicit standard constructor suppresses Javadoc warnings.
 	 */
@@ -56,19 +53,12 @@ public class FXMLLocator {
 	 public static FXMLLoader getFXMLLoader(String fxmlFileAsString)  {
 		
 		 URL fxmlFileURL = null;
-		 // delete the next four lines if you like the hard-coded version
-		 if (myClass == null) {
-			 myClass = new FXMLLocator().getClass();	
-			 myName = myClass.getSimpleName() + ".class";
-		 }
 
-		 // hard-coded version:
-		 // String theLocation = FXMLLocator.class.getResource("FXMLLocator.class").toString();
-		 String theLocation = myClass.getResource(myName).toString().replace(myName, fxmlFileAsString);
+		 String theLocation = FXMLLocator.class.getResource("FXMLLocator.class").toString().replace("FXMLLocator.class", fxmlFileAsString);
 		 try {
 			 fxmlFileURL = new URL(theLocation);
 		 } catch (MalformedURLException e) {
-			 System.out.println("Failed to find \""+ fxmlFileAsString + "\" within  \""+ theLocation + "\".\n" + 
+			 System.out.println("Failed to find \""+ fxmlFileAsString + "\" at \""+ theLocation + "\".\n" + 
 				 e.getMessage());
 			 return null;
 		 }
